@@ -12,7 +12,7 @@
     <section class="py-5">
         <div class="container"> 
             <h4 class="text-muted">All Project</h4>
-            {{-- @include('partials.session-messages') --}}
+            @include('partials.session-messages')
 
 
             <div class="table-responsive">
