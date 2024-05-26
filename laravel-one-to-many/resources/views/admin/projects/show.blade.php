@@ -13,8 +13,13 @@
     <section class="py-5">
         <div class="container">
             <div class="row">
-                <div class="col">
-                    <img width="100%" src="{{ $project->cover_image }}" alt="{{ $project->title }}">
+                <div class="col">             
+                    @if (Str::startsWith($project->cover_image, 'https:://'))
+                    <img width="500" src="{{$project->cover_image }}" alt="{{ $project->title }}">
+                @else
+                    <img width="500" src="{{ asset('storage/' . $project->cover_image) }}"
+                        alt="{{ $project->title }}">
+                @endif
                 </div>
                 <div class="col">
                     <p> <strong>Title</strong> : {{ $project->title }}</p>

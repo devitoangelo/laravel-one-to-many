@@ -33,12 +33,23 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        // dd($request->all());
+
         $validated = $request->validated();
         $slug = Str::slug($request->title, '-');
-        // dd($validated);
-        // dd($slug, $validated);
+
         $validated['slug'] = $slug;
+
+
+
+
+        if ($request->has('cover_image')) {
+
+            $image_path = Storage::put('uploads', $validated['cover_image']);
+            // dd($image_path);
+            $validated['cover_image'] = $image_path;
+        }
+
+
         Project::create($validated);
         return to_route('admin.project.index');
     }
@@ -67,6 +78,24 @@ class ProjectController extends Controller
         $validated = $request->validated();
         $slug = Str::slug($request->title, '-');
         $validated['slug'] = $slug;
+
+        if($request->has('cover_image')){
+
+
+            if($project->cover_image){
+
+                Storage::delete($project->cover_image);
+            }
+
+
+
+            $image_path = Storage::put('uploads', $validated['cover_image']);
+            // dd($image_path);
+            $validated['cover_image'] = $image_path;
+
+        }
+
+
         $project->update($validated);
         return to_route('admin.project.index')->with('message', "Post $project->title update successfully");
     }
@@ -76,6 +105,11 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+
+        if($project->cover_image){
+
+            Storage::delete($project->cover_image);
+        }
         $project->delete();
         return to_route('admin.project.index')->with('message', "Post $project->title deleted successfully");
     }
