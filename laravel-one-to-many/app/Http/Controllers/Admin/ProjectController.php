@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use App\Models\Type;
 
 class ProjectController extends Controller
 {
@@ -24,8 +25,11 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $types = Type::all();
 
-        return view('admin.projects.create');
+
+
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -34,13 +38,14 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
 
+
+
         $validated = $request->validated();
         $slug = Str::slug($request->title, '-');
 
         $validated['slug'] = $slug;
 
-
-
+       
 
         if ($request->has('cover_image')) {
 
