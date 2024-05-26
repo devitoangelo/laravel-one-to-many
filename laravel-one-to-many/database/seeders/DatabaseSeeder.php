@@ -4,6 +4,8 @@ namespace Database\Seeders;
 use Database\Seeders\ProjectSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\TypeSeeder;
+use function PHPSTORM_META\type;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,7 +22,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            ProjectSeeder::class
+            ProjectSeeder::class,
+            TypeSeeder::class
         ]);
     }
 }
