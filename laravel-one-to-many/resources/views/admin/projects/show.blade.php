@@ -23,6 +23,10 @@
                 </div>
                 <div class="col">
                     <p> <strong>Title</strong> : {{ $project->title }}</p>
+                    <div class="metadata">
+                        <strong>Type</strong> : {{$project->type ? $project->type->name : 'Type not' }}
+
+                    </div>
                     <p><strong>Description</strong> : {{ $project->content }}</p>
                 </div>
             </div>
